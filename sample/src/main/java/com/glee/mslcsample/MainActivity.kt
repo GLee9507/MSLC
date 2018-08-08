@@ -30,14 +30,15 @@ class MainActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.one -> {
+                layoutController.show(R.layout.loading)
             }
             R.id.two -> {
             }
             R.id.three -> {
             }
             R.id.four -> {
+                layoutController.showContent()
             }
-
             else -> {
             }
         }

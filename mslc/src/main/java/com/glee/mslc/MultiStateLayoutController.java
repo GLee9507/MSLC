@@ -1,19 +1,15 @@
 package com.glee.mslc;
 
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-
-import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 /**
@@ -46,7 +42,7 @@ public class MultiStateLayoutController {
     }
 
     @Nullable
-    public View getView(@LayoutRes int layoutId, @IdRes int viewId) {
+    public View findViewById(@LayoutRes int layoutId, @IdRes int viewId) {
         View view = stateViewSet.get(layoutId);
         return view == null ? null : view.findViewById(viewId);
     }
@@ -123,25 +119,7 @@ public class MultiStateLayoutController {
     }
 
     private void setViewLayoutParams(View view) {
-        ViewGroup.LayoutParams layoutParams = null;
-        if (viewGroup instanceof LinearLayout) {
-            layoutParams = new LinearLayout.LayoutParams(-1, -1);
-        } else if (viewGroup instanceof RelativeLayout) {
-            layoutParams = new RelativeLayout.LayoutParams(-1, -1);
-        } else if (viewGroup instanceof FrameLayout) {
-            layoutParams = new FrameLayout.LayoutParams(-1, -1);
-        } else if (viewGroup instanceof ConstraintLayout) {
-            layoutParams = new ConstraintLayout.LayoutParams(-1, -1);
-            ((ConstraintLayout.LayoutParams) layoutParams).bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
-            ((ConstraintLayout.LayoutParams) layoutParams).topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
-            ((ConstraintLayout.LayoutParams) layoutParams).startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
-            ((ConstraintLayout.LayoutParams) layoutParams).endToEnd = ConstraintLayout.LayoutParams.PARENT_ID;
-        }
-        if (layoutParams != null) {
-            view.setLayoutParams(layoutParams);
-        } else {
-            throw new IllegalStateException("MSLC不支持当前布局");
-        }
+        view.setLayoutParams(new ViewGroup.MarginLayoutParams(-1, -1));
     }
 }
 
