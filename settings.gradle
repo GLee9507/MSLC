@@ -1,1 +1,1 @@
-include  ':samplex', ':mslcx'
+include  ':sample', ':mslc'
